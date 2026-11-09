@@ -22,7 +22,7 @@ return Application::configure(basePath: dirname(__DIR__))
         $middleware->web(append: ['throttle:global']);
 
         $middleware->redirectGuestsTo(fn (Request $request) => route('login'));
-        $middleware->redirectUsersTo(fn (Request $request) => '/');
+        $middleware->redirectUsersTo(fn (Request $request) => $request->user()->isAdmin() ? '/admin/users' : '/stocks');
     })
     ->withExceptions(function (Exceptions $exceptions): void {
         $exceptions->shouldRenderJsonWhen(

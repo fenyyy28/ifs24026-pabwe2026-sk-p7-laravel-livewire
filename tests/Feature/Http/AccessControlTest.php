@@ -2,6 +2,7 @@
 
 namespace Tests\Feature\Http;
 
+use App\Features\Auth\Livewire\Login;
 use App\Features\Stock\Models\Stock;
 use App\Http\Middleware\EnsureRole;
 use Database\Seeders\DatabaseSeeder;
@@ -16,7 +17,8 @@ class AccessControlTest extends TestCase
 
     public function test_root_redirect_sesuai_peran(): void
     {
-        $this->get('/')->assertRedirect('/login');
+        // DIUBAH: guest sekarang langsung melihat halaman login di "/" (HTTP 200)
+        $this->get('/')->assertOk()->assertSeeLivewire(Login::class);
         $this->actingAs($this->makeAdmin())->get('/')->assertRedirect('/admin/users');
         $this->actingAs($this->makeMember())->get('/')->assertRedirect('/stocks');
     }
@@ -33,7 +35,8 @@ class AccessControlTest extends TestCase
 
     public function test_user_login_tidak_bisa_membuka_login_lagi(): void
     {
-        $this->actingAs($this->makeMember())->get('/login')->assertRedirect('/');
+        // DIUBAH: user yang sudah login diarahkan sesuai perannya (member -> /stocks)
+        $this->actingAs($this->makeMember())->get('/login')->assertRedirect('/stocks');
     }
 
     public function test_member_tidak_bisa_membuka_stok_orang_lain(): void

@@ -10,14 +10,10 @@ use App\Features\Stock\Livewire\StockList;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
-// Guest -> login, admin -> daftar user, member -> daftar stok
-Route::get('/', function () {
-    if (! Auth::check()) {
-        return redirect()->route('login');
-    }
-
-    return redirect()->route(Auth::user()->isAdmin() ? 'admin.users' : 'stocks.index');
-})->name('home');
+// Guest melihat halaman login langsung di "/" (HTTP 200).
+// User yang sudah login diarahkan sesuai peran oleh middleware guest
+// (lihat redirectUsersTo di bootstrap/app.php): admin -> users, member -> stocks.
+Route::get('/', Login::class)->middleware('guest')->name('home');
 
 Route::middleware('guest')->group(function () {
     Route::get('/login', Login::class)->name('login');
