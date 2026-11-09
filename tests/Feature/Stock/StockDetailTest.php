@@ -30,7 +30,11 @@ class StockDetailTest extends TestCase
     public function test_html_mentah_pada_markdown_dibuang(): void
     {
         $user = $this->makeMember();
-        $stock = Stock::factory()->for($user)->create(['description' => '<script>alert(1)</script>halo']);
+        // DIPERBAIKI: tag <script> dan teks "halo" harus dipisah baris kosong,
+        // kalau satu baris, seluruhnya dianggap satu blok HTML lalu dibuang.
+        $stock = Stock::factory()->for($user)->create([
+            'description' => "<script>alert(1)</script>\n\nhalo",
+        ]);
 
         Livewire::actingAs($user)->test(StockDetail::class, ['stock' => $stock])
             ->assertDontSeeHtml('<script>alert(1)</script>')

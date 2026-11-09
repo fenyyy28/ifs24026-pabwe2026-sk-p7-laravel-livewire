@@ -253,7 +253,9 @@ class StockListTest extends TestCase
         $stub->method('generateStockItems')->willThrowException(new RuntimeException('AI sedang bermasalah'));
         $this->app->instance(AiClientInterface::class, $stub);
 
+        // DIPERBAIKI: modal AI harus dibuka dulu supaya pesan error ikut ter-render.
         Livewire::actingAs($this->makeMember())->test(StockList::class)
+            ->call('openAi')
             ->set('aiPrompt', 'apa saja')
             ->call('generateAi')
             ->assertHasErrors('aiPrompt')
