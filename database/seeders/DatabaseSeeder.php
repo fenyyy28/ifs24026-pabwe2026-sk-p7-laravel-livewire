@@ -9,21 +9,27 @@ use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
 {
+    /**
+     * Aman dijalankan berulang kali (idempotent): akun tidak dibuat ganda
+     * dan contoh stok hanya dibuat jika member belum punya stok.
+     */
     public function run(): void
     {
-        User::create([
+        User::firstOrCreate(['username' => 'admin'], [
             'name' => 'Administrator',
-            'username' => 'admin',
             'password' => 'admin',
             'role' => User::ROLE_ADMIN,
         ]);
 
-        $member = User::create([
+        $member = User::firstOrCreate(['username' => 'member'], [
             'name' => 'Member Demo',
-            'username' => 'member',
             'password' => 'member',
             'role' => User::ROLE_MEMBER,
         ]);
+
+        if ($member->stocks()->exists()) {
+            return;
+        }
 
         $rows = [
             ['Kertas A4 80gsm', 'KRT-A4-80', 'Kertas fotokopi **80gsm** (1 rim = 500 lembar).', 120, 'rim', 55000, 20],
