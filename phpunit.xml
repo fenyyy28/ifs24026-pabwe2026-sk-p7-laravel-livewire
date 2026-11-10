@@ -19,6 +19,8 @@
     </source>
     <php>
         <env name="APP_ENV" value="testing"/>
+                <env name="APP_ENV" value="testing"/>
+        <env name="APP_KEY" value="base64:bNFKzSPZBiyV7qc9KGLnzL1QpAVWyt0Nc3Byk5i4FHQ=" force="true"/>
         <env name="FORCE_HTTPS" value="false"/>
         <env name="OPENAI_API_KEY" value=""/>
         <env name="APP_MAINTENANCE_DRIVER" value="file"/>

@@ -6,7 +6,7 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>{{ $title ?? 'Stock Barang' }} - {{ config('app.name') }}</title>
 
-       <meta name="description" content="Aplikasi inventaris stok barang: kelola stok, adjust quantity, import/export Excel, dan generate item dengan AI.">
+    <meta name="description" content="Aplikasi inventaris stok barang: kelola stok, adjust quantity, import/export Excel, dan generate item dengan AI.">
 
     {{-- Tailwind di-build lokal lewat Vite (tanpa CDN), supaya halaman cepat & tidak bergantung pihak ketiga --}}
     @vite(['resources/css/app.css', 'resources/js/app.js'])
@@ -46,6 +46,6 @@
         {{ $slot }}
     </main>
 
-    @livewireScripts
+    {!! str_replace('<script ', '<script defer ', \Illuminate\Support\Facades\Blade::render('@@livewireScripts')) !!}
 </body>
 </html>
