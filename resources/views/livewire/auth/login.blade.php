@@ -27,6 +27,6 @@
     </form>
 
     <p class="mt-4 text-center text-sm">
-        Belum punya akun? <a href="{{ route('register') }}" class="text-indigo-600 hover:underline">Daftar</a>
+        Belum punya akun? <a href="{{ route('register') }}" class="font-medium text-indigo-700 underline hover:text-indigo-900">Daftar</a>
     </p>
 </div>

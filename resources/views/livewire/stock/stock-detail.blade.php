@@ -22,7 +22,7 @@
             @endif
 
             <form wire:submit="uploadCover" class="space-y-2">
-                <input type="file" wire:model="cover" accept="image/*" class="w-full text-xs">
+                <input type="file" wire:model="cover" accept="image/*" aria-label="Pilih gambar cover stok" class="w-full text-xs">
                 @error('cover') <p class="text-sm text-red-600">{{ $message }}</p> @enderror
                 <button type="submit" class="rounded border px-3 py-1 text-sm hover:bg-gray-50">Upload cover</button>
             </form>
@@ -57,7 +57,7 @@
                         @if (filled($stock->description))
                             {!! $descriptionHtml !!}
                         @else
-                            <p class="text-gray-400">Belum ada deskripsi.</p>
+                            <p class="text-gray-600">Belum ada deskripsi.</p>
                         @endif
                     </div>
                 </div>

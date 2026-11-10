@@ -25,7 +25,7 @@
     <div class="flex flex-wrap gap-2">
         <input type="search" wire:model.live.debounce.300ms="search" placeholder="Cari nama / SKU..."
                class="w-64 rounded border px-3 py-2 text-sm">
-        <select wire:model.live="status" class="rounded border px-3 py-2 text-sm">
+        <select wire:model.live="status" aria-label="Filter status" class="rounded border px-3 py-2 text-sm">
             <option value="">Semua status</option>
             @foreach ($statuses as $s)
                 <option value="{{ $s->value }}">{{ $s->label() }}</option>
