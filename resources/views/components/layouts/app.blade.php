@@ -6,10 +6,11 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>{{ $title ?? 'Stock Barang' }} - {{ config('app.name') }}</title>
 
-    {{-- Tailwind & Toast UI Editor via CDN (tidak perlu npm build) --}}
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="https://uicdn.toast.com/editor/latest/toastui-editor.min.css">
-    <script src="https://uicdn.toast.com/editor/latest/toastui-editor-all.min.js"></script>
+       <meta name="description" content="Aplikasi inventaris stok barang: kelola stok, adjust quantity, import/export Excel, dan generate item dengan AI.">
+
+    {{-- Tailwind di-build lokal lewat Vite (tanpa CDN), supaya halaman cepat & tidak bergantung pihak ketiga --}}
+    @vite(['resources/css/app.css', 'resources/js/app.js'])
+    @stack('head')
     @livewireStyles
 </head>
 <body class="min-h-screen bg-gray-50 text-gray-800">

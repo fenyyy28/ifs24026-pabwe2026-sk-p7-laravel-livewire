@@ -1,3 +1,9 @@
+@push('head')
+    {{-- Toast UI Editor hanya dimuat di halaman detail stok --}}
+    <link rel="stylesheet" href="https://uicdn.toast.com/editor/latest/toastui-editor.min.css">
+    <script src="https://uicdn.toast.com/editor/latest/toastui-editor-all.min.js" defer></script>
+@endpush
+
 <div class="mx-auto max-w-4xl space-y-4">
     <a href="{{ route('stocks.index') }}" class="text-sm text-indigo-600 hover:underline">&larr; Kembali ke daftar stok</a>
 
