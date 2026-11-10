@@ -379,15 +379,6 @@ pipeline {
                         -x "storage/framework/testing/*" \
                         -x "bootstrap/cache/*.php"
 
-                    # DITAMBAHKAN: pola -x di atas bisa ikut membuang folder runtime Laravel.
-                    # Tanpa folder ini aplikasi error 500 di server (cache/view path tidak ada).
-                    echo "=== Pastikan folder runtime Laravel ikut di zip ==="
-                    for d in storage/logs storage/framework/cache/data storage/framework/sessions storage/framework/views bootstrap/cache; do
-                        mkdir -p "$d"
-                        touch "$d/.gitkeep"
-                        zip -q latest-app.zip "$d/.gitkeep"
-                    done
-
                     echo "=== Application Package Created ==="
 
                     ls -lh latest-app.zip
@@ -505,15 +496,6 @@ pipeline {
                     echo "=========================================="
                     echo "       START APPLICATION DEPLOYMENT"
                     echo "=========================================="
-
-                    // DITAMBAHKAN: pastikan variabel deploy terisi supaya salah konfigurasi
-                    // (mis. job belum terhubung ke website sk-p7) langsung terlihat di log.
-                    ['URL_REDEPLOY', 'URL_PROGRESS', 'DEPLOY_TOKEN', 'WEBSITE_ID'].each { name ->
-                        if (!env."${name}") {
-                            error("Variabel ${name} belum diatur di Jenkins untuk job ini.")
-                        }
-                    }
-                    echo "Website ID: ${env.WEBSITE_ID}"
 
                     echo "Artifact URL:"
                     echo "${env.ARTIFACT_URL}"
